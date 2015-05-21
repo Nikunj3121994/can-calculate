@@ -1,0 +1,33 @@
+
+div#calculator {
+  width:100%;
+  font-size:1.2rem;
+}
+
+div#numberButtons {
+  width:90%;
+  float:right;
+}
+
+div#operationButtons {
+  width:10%;
+  float:right;
+}
+
+div#display {
+  width: 99%;
+  height: 3rem;
+  margin-bottom:1rem;
+  background-color:white;
+  border:1px solid gray;
+  text-align:right;
+  font-size:1.5rem;
+}
+
+div#numberButtons > button {
+  margin: 0.2rem;
+  float:left;
+  width:32%;
+  height: 3rem;
+  font-size:1.5rem;
+}

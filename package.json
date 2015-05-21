@@ -1,0 +1,15 @@
+{
+  "name": "can-calculator",
+  "version": "0.0.1",
+  "description": "CanJS Calculator Component",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sami Pietilä <sami.pietila@icloud.com>",
+  "license": "MIT",
+  "dependencies": {
+    "can": "^2.2.6",
+    "steal": "^0.10.5"
+  }
+}
