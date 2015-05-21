@@ -1,7 +1,7 @@
 
 <div id="calculator">
 
-  <div id="display">{{currentValue}}</div>
+  <div id="display">{{calculationString}}</div>
 
   <div id="numberButtons">
     <button value="1" can-click="numberButtonClicked">1</button>
@@ -14,6 +14,8 @@
     <button value="8" can-click="numberButtonClicked">8</button>
     <button value="9" can-click="numberButtonClicked">9</button>
     <button value="0" can-click="numberButtonClicked">0</button>
+    <button value="0" can-click="eraseButtonClicked">Erase</button>
+    <button value="0" can-click="clearButtonClicked">C</button>
   </div>
 
   <div id="operationButtons">

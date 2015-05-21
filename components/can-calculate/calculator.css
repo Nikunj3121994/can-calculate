@@ -1,33 +1,46 @@
 
+
+
+
 div#calculator {
   width:100%;
   font-size:1.2rem;
+  background-color:silver;
 }
 
 div#numberButtons {
-  width:90%;
-  float:right;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+
+  float:left;
+  width:80%;
+}
+div#numberButtons > button {
+  -webkit-flex: 3 auto;
+  flex: 1 auto;
+  width:33%;
+  font-size: 2rem;
 }
 
 div#operationButtons {
-  width:10%;
+  width:20%;
   float:right;
+}
+div#operationButtons > button {
+  font-size: 2rem;
+  width:100%;
 }
 
 div#display {
-  width: 99%;
+  overflow:hidden;
+  width: 100%;
   height: 3rem;
   margin-bottom:1rem;
   background-color:white;
   border:1px solid gray;
   text-align:right;
   font-size:1.5rem;
-}
-
-div#numberButtons > button {
-  margin: 0.2rem;
-  float:left;
-  width:32%;
-  height: 3rem;
-  font-size:1.5rem;
+  background-color:rgba(250,250,250,1);
 }
