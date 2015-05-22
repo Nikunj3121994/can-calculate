@@ -15,73 +15,90 @@ export default can.Component.extend({
 	viewModel: {
 
 		define: {
-			calculation: {
+			calculationArray: {
+				value: [],
+	      set: function(){
+					var calculationArray = this.attr('calculationArray');
 
-	      set: function(newVal){
-					console.log(this.calculation);
-					this.attr('calculationString', this.calculation.join(' '));
+					if (calculationArray !== undefined) {
+							this.attr('calculationString', calculationArray.join(' '));
+					}
 	      },
-
-				/*
-	      get: function (newVal) {
-					console.log(newVal);
-					return this.attr('calculation');
-	      }
-				*/
-
-
-	    }
-
+	    },
+			calculationString: {
+				value: ""
+			}
 		},
 
-
-		calculationString: "",
-
-		calculation: [],
 
 		/**
 		*
 		*/
 		numberButtonClicked: function(context, el, ev) {
-			var newValue = this.calculation.push(el.attr('value'));
-			this.attr('calculation', newValue);
+			var calculationArray = this.attr('calculationArray');
+			var previousIndex = calculationArray.length - 1;
+			var previousInput = calculationArray[previousIndex];
+
+			// If calculationArray is empty or previous input was an operation
+			if (previousInput === undefined || isNaN(previousInput)) {
+				calculationArray.push(parseInt(el.attr('value')));
+			} else if (!isNaN(previousInput)) {
+				calculationArray[calculationArray.length - 1] = parseInt(calculationArray[calculationArray.length - 1].toString() + parseInt(el.attr('value')).toString());
+			}
+			this.attr('calculationArray', calculationArray);
 		},
 
 		/**
 		*
 		*/
 		operationButtonClicked: function(context, el, ev) {
+			var calculationArray = this.attr('calculationArray');
+			var previousIndex = calculationArray.length - 1;
+			var previousInput = calculationArray[previousIndex];
 
-			var newValue = this.calculation.push(el.attr('value'));
-			this.attr('calculation', newValue);
-
+			// Submit calculation
 			if (el.attr('value') === "=") {
-					var endCalculation = 0;
-					this.calculation.forEach((val, index, arr) => {
-						if (!isNaN(val)) {
-							endCalculation = endCalculation + val;
-						}
-					});
-					var newValue = this.calculation.push(endCalculation);
-					this.attr('calculation', newValue);
+				var finishedCalculation = eval(calculationArray.join(' '));
+				calculationArray.push("=");
+				calculationArray.push(finishedCalculation);
+			} else {
+				// If calculationArray is NOT empty and previous input was an operation
+				if (previousInput !== undefined && !isNaN(previousInput)) {
+					calculationArray.push(el.attr('value'));
+				}
 			}
-
-
+			this.attr('calculationArray', calculationArray);
 		},
 
 		/**
 		*
 		*/
 		eraseButtonClicked: function(context, el, ev) {
-			var newValue = this.calculation.pop();
-			this.attr('calculation', newValue);
+			var calculationArray = this.attr('calculationArray');
+			var previousIndex = calculationArray.length - 1;
+			var previousInput = calculationArray[previousIndex];
+
+			if (isNaN(previousInput)) {
+				calculationArray.pop();
+			} else {
+				var newNumber = calculationArray[previousIndex].toString();
+				newNumber = parseInt(newNumber.substring(0, newNumber.length - 1));
+
+				if (!isNaN(newNumber)) {
+					calculationArray[previousIndex] = newNumber;
+				} else {
+					calculationArray.pop();
+				}
+			}
+			this.attr('calculationArray', calculationArray);
 		},
 
 		/**
 		*
 		*/
-		clearButtonClicked: function(context, el, ev) {;
-			this.attr('calculation', null);
+		clearButtonClicked: function(context, el, ev) {
+			this.attr('calculationArray', []);
+			this.attr('calculationString', "");
 		},
 
 	},

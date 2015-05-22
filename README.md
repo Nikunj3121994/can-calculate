@@ -1,2 +1,2 @@
 # can-calculate
-CanJS Calculator Component
+Calculator component made with StealJS and CanJS.
