@@ -1,1 +1,8 @@
-<can-calculate></can-calculate>
+
+<h1>Demo of the can-calculate component</h1>
+
+<br /><hr /><br />
+
+<div style="width:20%; margin-left:auto; margin-right:auto;">
+  <can-calculate calculationValue=""></can-calculate>
+</div>

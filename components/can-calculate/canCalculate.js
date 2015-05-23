@@ -21,7 +21,9 @@ export default can.Component.extend({
 					var calculationArray = this.attr('calculationArray');
 
 					if (calculationArray !== undefined) {
+							console.log(calculationArray);
 							this.attr('calculationString', calculationArray.join(' '));
+							console.log(this.attr('calculationString'));
 					}
 	      },
 	    },
@@ -41,9 +43,13 @@ export default can.Component.extend({
 
 			// If calculationArray is empty or previous input was an operation
 			if (previousInput === undefined || isNaN(previousInput)) {
-				calculationArray.push(parseInt(el.attr('value')));
+				calculationArray.push(parseFloat(el.attr('value')));
 			} else if (!isNaN(previousInput)) {
-				calculationArray[calculationArray.length - 1] = parseInt(calculationArray[calculationArray.length - 1].toString() + parseInt(el.attr('value')).toString());
+				if (el.attr('value') === ".") {
+					calculationArray[calculationArray.length - 1] = calculationArray[calculationArray.length - 1].toString() + ".";
+				} else {
+					calculationArray[calculationArray.length - 1] = parseFloat(calculationArray[calculationArray.length - 1].toString() + parseFloat(el.attr('value')).toString());
+				}
 			}
 			this.attr('calculationArray', calculationArray);
 		},
@@ -59,15 +65,19 @@ export default can.Component.extend({
 			// Submit calculation
 			if (el.attr('value') === "=") {
 				var finishedCalculation = eval(calculationArray.join(' '));
-				calculationArray.push("=");
-				calculationArray.push(finishedCalculation);
+
+				// Why the heck did I have to force the array clear like this?!
+				// Must find out!
+				this.attr('calculationArray', [finishedCalculation]);
+				calculationArray = [finishedCalculation];
 			} else {
-				// If calculationArray is NOT empty and previous input was an operation
+				// If calculationArray is NOT empty and previous input was NOT an operation
 				if (previousInput !== undefined && !isNaN(previousInput)) {
 					calculationArray.push(el.attr('value'));
 				}
 			}
 			this.attr('calculationArray', calculationArray);
+
 		},
 
 		/**
@@ -82,7 +92,7 @@ export default can.Component.extend({
 				calculationArray.pop();
 			} else {
 				var newNumber = calculationArray[previousIndex].toString();
-				newNumber = parseInt(newNumber.substring(0, newNumber.length - 1));
+				newNumber = parseFloat(newNumber.substring(0, newNumber.length - 1));
 
 				if (!isNaN(newNumber)) {
 					calculationArray[previousIndex] = newNumber;
