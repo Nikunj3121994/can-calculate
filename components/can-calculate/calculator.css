@@ -39,6 +39,7 @@ div#numberButtons {
 
   float:left;
   width:80%;
+
 }
 div#numberButtons > button {
   -webkit-flex: 3 auto;
@@ -46,6 +47,13 @@ div#numberButtons > button {
   width:33%;
   height: 20%;
   font-size: 2.5rem;
+
+  background-color:DodgerBlue ;
+  color:white;
+}
+
+div#numberButtons > button#clearButton {
+    background-color:OrangeRed;
 }
 
 div#operationButtons {
@@ -56,4 +64,5 @@ div#operationButtons > button {
   font-size: 2.5rem;
   width:100%;
   height: 20%;
+  background-color:orange;
 }
